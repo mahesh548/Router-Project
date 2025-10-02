@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AllPost() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts").then((data) => {
       data.json().then((posts) => {
@@ -16,7 +18,12 @@ export default function AllPost() {
                   <h2 className="card-title">{title}</h2>
                   <p>{body}</p>
                   <div className="justify-end card-actions">
-                    <button className="btn btn-primary">Open post</button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => navigate("/post/" + id)}
+                    >
+                      Open post
+                    </button>
                   </div>
                 </div>
               </div>
