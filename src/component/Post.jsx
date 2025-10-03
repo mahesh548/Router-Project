@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 
 export default function Post() {
   const { id } = useParams();
   const [postData, setPostData] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
+  const { setCount } = useOutletContext();
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts/" + id)
@@ -40,6 +46,12 @@ export default function Post() {
           </div>
         </div>
       </div>
+      <button
+        className="btn btn-primary"
+        onClick={() => setCount((prev) => prev + 1)}
+      >
+        Increase
+      </button>
       {location.state?.commentId && (
         <p className="text-center text-primary">
           Post for Comment: <b>{location.state.commentId}</b>

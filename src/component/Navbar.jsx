@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 export default function Navbar() {
+  const [count, setCount] = useState(1);
+
+  console.log(count);
   return (
     <>
       <div className="dock dock-xl">
@@ -113,7 +117,7 @@ export default function Navbar() {
           <span className="dock-label">Settings</span>
         </NavLink>
       </div>
-      <Outlet />
+      <Outlet context={{ setCount }} />
     </>
   );
 }
