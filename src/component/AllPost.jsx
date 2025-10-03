@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AllPost() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts").then((data) => {
       data.json().then((posts) => {

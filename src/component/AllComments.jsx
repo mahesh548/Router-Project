@@ -35,7 +35,9 @@ export default function AllComments() {
               <div className="justify-end card-actions">
                 <button
                   className="btn btn-primary"
-                  onClick={() => navigate("/post/" + postId)}
+                  onClick={() =>
+                    navigate("/post/" + postId, { state: { commentId: id } })
+                  }
                 >
                   Open post
                 </button>

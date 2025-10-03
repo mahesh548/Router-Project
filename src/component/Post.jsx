@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Post() {
   const { id } = useParams();
   const [postData, setPostData] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts/" + id)
@@ -39,6 +40,11 @@ export default function Post() {
           </div>
         </div>
       </div>
+      {location.state?.commentId && (
+        <p className="text-center text-primary">
+          Post for Comment: <b>{location.state.commentId}</b>
+        </p>
+      )}
       <div className="flex flex-row flex-wrap justify-evenly gap-3 bg-base-200"></div>
     </div>
   );
