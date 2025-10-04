@@ -6,9 +6,7 @@ export default function AllComments() {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [data, setData] = useState([]);
-  const [filtered, searchFilter] = useFilter(data, (item, query) => {
-    return item.postId == query;
-  });
+  const [filtered, searchFilter] = useFilter(data, (item) => item.postId);
   const [param, setParam] = useSearchParams();
 
   useEffect(() => {

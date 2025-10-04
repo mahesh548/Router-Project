@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function useFilter(
   data,
-  cb = (item, query) => {
+  cb = (item) => {
     return item;
   }
 ) {
@@ -12,7 +12,7 @@ export default function useFilter(
       setFiltered(data);
       return;
     }
-    setFiltered(data.filter((item) => cb(item, query)));
+    setFiltered(data.filter((item) => cb(item) == query));
   };
   return [filtered, searchFilter];
 }
