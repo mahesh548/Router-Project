@@ -1,12 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import useFilter from "../hooks/useFilter";
 
 export default function AllComments() {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [data, setData] = useState([]);
+  const [filtered, searchFilter] = useFilter(data, (item, query) => {
+    return item.postId == query;
+  });
   const [param, setParam] = useSearchParams();
-  const postId = param.get("postId");
+
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/comments").then((res) => {
       res.json().then((data) => {
@@ -16,13 +20,9 @@ export default function AllComments() {
   }, []);
 
   useEffect(() => {
-    if (!data) return;
-    let filterData = data.filter(({ postId: userPostId }) => {
-      return postId == userPostId;
-    });
-    if (!postId) filterData = data;
+    if (!filtered) return;
     setComments(
-      filterData.map(({ id, name, body, email, postId }) => {
+      filtered.map(({ id, name, body, email, postId }) => {
         return (
           <div
             className="card w-96 card-border bg-base-100 card-xs shadow-sm"
@@ -47,7 +47,11 @@ export default function AllComments() {
         );
       })
     );
-  }, [postId, data]);
+  }, [filtered]);
+
+  useEffect(() => {
+    searchFilter(param.get("postId"));
+  }, [param, data]);
 
   return (
     <div>

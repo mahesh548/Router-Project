@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useResize from "../hooks/useResize";
 
 export default function AllPost() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const { height, width } = useResize();
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts").then((data) => {
       data.json().then((posts) => {
@@ -36,6 +38,9 @@ export default function AllPost() {
   }, []);
   return (
     <div>
+      <small className="bg-soft bg-secondary rounded-md p-1 mb-2 fixed top-[10px] right-[10px] z-10">
+        {width}px X {height}px
+      </small>
       <div className="hero bg-base-200 min-h-50">
         <div className="hero-content text-center">
           <div className="max-w-md">
