@@ -4,7 +4,7 @@ import { NavLink, Outlet } from "react-router-dom";
 export default function Navbar() {
   const [count, setCount] = useState(1);
 
-  console.log(count);
+  console.log(count); // example use of outletContext
   return (
     <>
       <div className="dock dock-xl">
