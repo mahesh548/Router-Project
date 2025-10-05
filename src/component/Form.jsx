@@ -10,7 +10,8 @@ const formRules = {
 };
 
 export default function Form() {
-  const { formData, setFormData, setExpenseList } = useContext(BillContext);
+  const { formData, setFormData, setExpenseList, editId, setEditId } =
+    useContext(BillContext);
 
   // to show error messages
   const [errors, setErrors] = useState({});
@@ -30,10 +31,22 @@ export default function Form() {
     e.preventDefault();
 
     const errors = Validate(formData, formRules); // form validation
-
     if (Object.keys(errors).length) {
       // if invalid input show error and return
       setErrors(errors);
+      return;
+    }
+
+    if (editId) {
+      setExpenseList((prev) => {
+        let newPrev = prev.map((item) => {
+          if (item.id != editId) return item;
+          return { ...item, ...formData };
+        });
+        return newPrev;
+      });
+      setEditId("");
+      setFormData({ title: "", category: "", price: "" });
       return;
     }
 
@@ -83,7 +96,9 @@ export default function Form() {
         placeholder={"Enter price in rupees"}
         error={errors?.price}
       />
-      <button className="btn w-100 btn-primary mt-3">Add new expense</button>
+      <button className="btn w-100 btn-primary mt-3">
+        {editId ? "Save Edits" : "Add new expense"}
+      </button>
     </form>
   );
 }

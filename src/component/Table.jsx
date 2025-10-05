@@ -3,14 +3,26 @@ import { BillContext } from "../context/BillContextProvider";
 import useFilter from "../hooks/useFilter";
 
 export default function Table() {
-  const { expenseList } = useContext(BillContext);
+  const { expenseList, setExpenseList, setFormData, setEditId } =
+    useContext(BillContext);
   const [sorting, setSorting] = useState(() => () => {});
   const [data, searchQuery] = useFilter(expenseList, (item) => {
     return item.category;
   });
+  const deleteEntry = (id) => {
+    const updatedList = expenseList.filter((item) => item.id != id);
+    setExpenseList(updatedList);
+  };
+  const editEntry = (id) => {
+    const { title, category, price } = expenseList.find(
+      (item) => item.id == id
+    );
+    setFormData({ title, category, price });
+    setEditId(id);
+  };
   return (
     <>
-      <div className="stats bg-base-100 border-base-300 border w-100 mt-6">
+      <div className="stats bg-base-100 border-base-300 border w-[100%] mt-6">
         <div className="stat">
           <div className="stat-title">Total Item</div>
           <div className="stat-value">{data.length}</div>
@@ -30,7 +42,6 @@ export default function Table() {
         <table className="table">
           <thead>
             <tr>
-              <th></th>
               <th>
                 Title
                 <button
@@ -109,18 +120,32 @@ export default function Table() {
                   </i>
                 </button>
               </th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {data
               .sort((a, b) => sorting(a, b))
-              .map(({ serial, title, category, price, id }) => {
+              .map(({ title, category, price, id }) => {
                 return (
                   <tr key={id}>
-                    <th>{serial}</th>
                     <td>{title}</td>
                     <td>{category}</td>
                     <td>{price}</td>
+                    <td>
+                      <button
+                        className="btn btn-circle btn-secondary btn-sm p-1 m-1"
+                        onClick={() => editEntry(id)}
+                      >
+                        <span className="material-symbols-outlined">edit</span>
+                      </button>
+                      <button
+                        className="btn btn-circle btn-error btn-sm p-1 m-1"
+                        onClick={() => deleteEntry(id)}
+                      >
+                        <span class="material-symbols-outlined">delete</span>
+                      </button>
+                    </td>
                   </tr>
                 );
               })}

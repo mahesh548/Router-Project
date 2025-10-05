@@ -25,9 +25,19 @@ export function BillContextProvider({ children }) {
     price: "",
     category: "",
   });
+
+  const [editId, setEditId] = useLocalStorage("editId", "");
+
   return (
     <BillContext.Provider
-      value={{ expenseList, setExpenseList, formData, setFormData }}
+      value={{
+        expenseList,
+        setExpenseList,
+        formData,
+        setFormData,
+        editId,
+        setEditId,
+      }}
     >
       {children}
     </BillContext.Provider>
