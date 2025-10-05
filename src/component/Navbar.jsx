@@ -85,7 +85,7 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/albums"
+          to="/bills"
           className={({ isActive }) => (isActive ? "dock-active" : "")}
         >
           <svg
@@ -101,7 +101,7 @@ export default function Navbar() {
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="square"
-                stroke-miterlimit="10"
+                strokeMiterlimit="10"
                 strokeWidth="2"
               ></circle>
               <path
