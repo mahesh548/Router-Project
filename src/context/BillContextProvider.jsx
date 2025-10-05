@@ -1,9 +1,10 @@
 import { createContext, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export const BillContext = createContext({});
 
 export function BillContextProvider({ children }) {
-  const [expenseList, setExpenseList] = useState([
+  const [expenseList, setExpenseList] = useLocalStorage("expenseList", [
     {
       title: "test",
       category: "test category",
@@ -19,7 +20,7 @@ export function BillContextProvider({ children }) {
       id: crypto.randomUUID(),
     },
   ]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useLocalStorage("formData", {
     title: "",
     price: "",
     category: "",

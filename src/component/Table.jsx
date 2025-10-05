@@ -8,7 +8,6 @@ export default function Table() {
   const [data, searchQuery] = useFilter(expenseList, (item) => {
     return item.category;
   });
-  console.log(data);
   return (
     <>
       <div className="stats bg-base-100 border-base-300 border w-100 mt-6">
@@ -67,8 +66,20 @@ export default function Table() {
                     tabIndex={0}
                     className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                   >
-                    <li onClick={() => searchQuery()}>
-                      <a>Item 1</a>
+                    <li onClick={() => searchQuery("")}>
+                      <a>No Filter</a>
+                    </li>
+                    <li onClick={() => searchQuery("Clothes")}>
+                      <a>Clothes</a>
+                    </li>
+                    <li onClick={() => searchQuery("Grocery")}>
+                      <a>Grocery</a>
+                    </li>
+                    <li onClick={() => searchQuery("Electronics")}>
+                      <a>Electronics</a>
+                    </li>
+                    <li onClick={() => searchQuery("Bills")}>
+                      <a>Bills</a>
                     </li>
                   </ul>
                 </div>
