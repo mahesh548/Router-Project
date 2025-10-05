@@ -11,6 +11,13 @@ export function BillContextProvider({ children }) {
       serial: "1",
       id: crypto.randomUUID(),
     },
+    {
+      title: "test",
+      category: "test category",
+      price: "100",
+      serial: "2",
+      id: crypto.randomUUID(),
+    },
   ]);
   const [formData, setFormData] = useState({
     title: "",

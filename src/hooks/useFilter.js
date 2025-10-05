@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useFilter(
   data,
@@ -7,6 +7,9 @@ export default function useFilter(
   }
 ) {
   const [filtered, setFiltered] = useState(data);
+  useEffect(() => {
+    setFiltered(data);
+  }, [data]);
   const searchFilter = (query) => {
     if (!query) {
       setFiltered(data);
