@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { BillContext } from "../context/BillContextProvider";
 import useFilter from "../hooks/useFilter";
+import Modal from "./Modal";
 
 export default function Table() {
   const { expenseList, setExpenseList, setFormData, setEditId } =
@@ -9,6 +10,7 @@ export default function Table() {
   const [data, searchQuery] = useFilter(expenseList, (item) => {
     return item.category;
   });
+
   const deleteEntry = (id) => {
     const updatedList = expenseList.filter((item) => item.id != id);
     setExpenseList(updatedList);

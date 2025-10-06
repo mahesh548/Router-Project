@@ -5,8 +5,18 @@ import AllComments from "./component/AllComments";
 import Post from "./component/Post";
 import { ThemeContext } from "./context/ThemeContext";
 import ThemeSwitcher from "./component/ThemeSwitcher";
-import Bills from "./component/Bills";
-import { BillContextProvider } from "./context/BillContextProvider";
+// import Bills from "./component/Bills";
+// import { BillContextProvider } from "./context/BillContextProvider";
+import { lazy, Suspense } from "react";
+
+const Bills = lazy(() => import("./component/Bills")); // lazy loading component
+
+//lazy loading context (named export)
+const BillContextProvider = lazy(() =>
+  import("./context/BillContextProvider").then((module) => ({
+    default: module.BillContextProvider,
+  }))
+);
 
 export default function App() {
   return (
@@ -20,9 +30,11 @@ export default function App() {
           <Route
             path="/bills"
             element={
-              <BillContextProvider>
-                <Bills />
-              </BillContextProvider>
+              <Suspense fallback={<h1>Loading..</h1>}>
+                <BillContextProvider>
+                  <Bills />
+                </BillContextProvider>
+              </Suspense>
             }
           />
           <Route path="*" element={<h1>404 NotFound!!</h1>} />

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import InputField from "./InputField";
 import { BillContext } from "../context/BillContextProvider";
 import Validate from "../Utility/Validate";
+import Modal from "./Modal";
 
 const formRules = {
   title: { minL: 2, maxL: 50 },
@@ -12,6 +13,8 @@ const formRules = {
 export default function Form() {
   const { formData, setFormData, setExpenseList, editId, setEditId } =
     useContext(BillContext);
+
+  const [openModal, setOpen] = useState(false);
 
   // to show error messages
   const [errors, setErrors] = useState({});
@@ -63,42 +66,53 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={handleForm}>
-      <InputField
-        value={formData.title}
-        onChange={handleInput}
-        label={"Title"}
-        name={"title"}
-        placeholder={"Enter product title"}
-        error={errors?.title}
-      />
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">Select Category</legend>
-        <select
-          className="select w-100"
-          name="category"
+    <>
+      <form onSubmit={handleForm}>
+        <InputField
+          value={formData.title}
           onChange={handleInput}
-          value={formData.category}
-        >
-          <option hidden>Product Categories</option>
-          <option>Clothes</option>
-          <option>Grocery</option>
-          <option>Electronics</option>
-          <option>Bills</option>
-        </select>
-        {errors?.category && <span className="label">{errors?.category}</span>}
-      </fieldset>
-      <InputField
-        value={formData.price}
-        onChange={handleInput}
-        label={"Price"}
-        name={"price"}
-        placeholder={"Enter price in rupees"}
-        error={errors?.price}
-      />
-      <button className="btn w-100 btn-primary mt-3">
-        {editId ? "Save Edits" : "Add new expense"}
+          label={"Title"}
+          name={"title"}
+          placeholder={"Enter product title"}
+          error={errors?.title}
+        />
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Select Category</legend>
+          <select
+            className="select w-100"
+            name="category"
+            onChange={handleInput}
+            value={formData.category}
+          >
+            <option hidden>Product Categories</option>
+            <option>Clothes</option>
+            <option>Grocery</option>
+            <option>Electronics</option>
+            <option>Bills</option>
+          </select>
+          {errors?.category && (
+            <span className="label">{errors?.category}</span>
+          )}
+        </fieldset>
+        <InputField
+          value={formData.price}
+          onChange={handleInput}
+          label={"Price"}
+          name={"price"}
+          placeholder={"Enter price in rupees"}
+          error={errors?.price}
+        />
+        <button className="btn w-100 btn-primary mt-3">
+          {editId ? "Save Edits" : "Add new expense"}
+        </button>
+      </form>
+      <button
+        className="btn w-[90%]  block btn-neutral rounded-lg mt-4"
+        onClick={() => setOpen(true)}
+      >
+        Open Modal
       </button>
-    </form>
+      <Modal isOpen={openModal} setOpen={setOpen} />
+    </>
   );
 }

@@ -4,7 +4,7 @@ import Table from "./Table";
 export default function Bills() {
   return (
     <div className="flex flex-row flex-wrap justify-evenly gap-2 px-5  mt-5">
-      <div className="w-100 flex-1">
+      <div className="w-100 flex-1 m-auto w-[90%]">
         <Form />
       </div>
       <div className="flex-2">
