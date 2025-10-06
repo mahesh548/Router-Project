@@ -5,7 +5,7 @@ export default function ThemeSwitcher() {
   const [theme, setTheme] = useContext(Theme);
 
   return (
-    <div className="fab bottom-[100px]">
+    <div className="fab bottom-[10px]">
       <div
         tabIndex={0}
         role="button"

@@ -112,7 +112,7 @@ export default function Form() {
       >
         Open Modal
       </button>
-      <Modal isOpen={openModal} setOpen={setOpen} />
+      <Modal isOpen={openModal} setOpen={setOpen} content={"Hello"} />
     </>
   );
 }
