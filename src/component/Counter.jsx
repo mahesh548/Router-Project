@@ -1,8 +1,9 @@
 import { Component } from "react";
+import withCounter from "./WithCounter";
 
 class Counter extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       events: [],
       log: false,
@@ -19,6 +20,7 @@ class Counter extends Component {
   };
 
   componentDidMount() {
+    this.updateEvent(this.props.extraProps.txt, this.props.extraProps.type);
     this.updateEvent("Component mounted..", " bg-warning text-warning-content");
   }
   componentDidUpdate() {
@@ -92,4 +94,5 @@ class Counter extends Component {
     );
   }
 }
-export default Counter;
+
+export default withCounter(Counter);
