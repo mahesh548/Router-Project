@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import InputField from "./InputField";
 import { BillContext } from "../context/BillContextProvider";
 import Validate from "../Utility/Validate";
-import Modal from "./Modal";
 
 const formRules = {
   title: { minL: 2, maxL: 50 },
@@ -13,8 +12,6 @@ const formRules = {
 export default function Form() {
   const { formData, setFormData, setExpenseList, editId, setEditId } =
     useContext(BillContext);
-
-  const [openModal, setOpen] = useState(false);
 
   // to show error messages
   const [errors, setErrors] = useState({});
@@ -106,13 +103,6 @@ export default function Form() {
           {editId ? "Save Edits" : "Add new expense"}
         </button>
       </form>
-      <button
-        className="btn w-[90%]  block btn-neutral rounded-lg mt-4"
-        onClick={() => setOpen(true)}
-      >
-        Open Modal
-      </button>
-      <Modal isOpen={openModal} setOpen={setOpen} content={"Hello"} />
     </>
   );
 }

@@ -7,7 +7,7 @@ export default function Navbar() {
   console.log(count); // example use of outletContext
   return (
     <>
-      <ul className="flex flex-row items-center justify-center gap-5 bg-base-200 px-8 py-3 rounded-box fixed bottom-[10px] left-1/2 -translate-x-1/2 z-10 border-1">
+      <ul className="flex flex-row items-center justify-center gap-5 bg-base-200 px-8 py-3 rounded-box fixed bottom-[10px] left-1/2 -translate-x-1/2 z-10 border-1 ">
         <li className="flex">
           <NavLink
             to="/"

@@ -39,7 +39,7 @@ class Counter extends Component {
     const { events, count } = this.state;
     return (
       <>
-        <div className="container pb-20">
+        <div className="container pb-20 max-w-md m-auto">
           <div className="hero min-h-50">
             <div className="hero-content text-center">
               <div className="max-w-md">
@@ -48,7 +48,7 @@ class Counter extends Component {
               </div>
             </div>
           </div>
-          <div className="flex flex-row m-auto w-100 justify-center mt-5 gap-5 items-center">
+          <div className="flex flex-row m-auto max-w-md justify-center mt-5 gap-5 items-center">
             <button
               className="btn btn-circle btn-primary text-2xl font-bold p-8 "
               onClick={function () {
@@ -69,7 +69,7 @@ class Counter extends Component {
               +
             </button>
           </div>
-          <div className="mockup-code w-md m-auto mt-6">
+          <div className="mockup-code max-w-md m-auto mt-6">
             <pre data-prefix="$">
               <code>Component activity logs start</code>
             </pre>
