@@ -1,10 +1,12 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useId, useRef } from "react";
 
 function PureComponent({ title, func }) {
+  const eleId = useId(); // this hook provided by react that returns unique id for html elements and it stays same until our html structure changes.
+  console.log(eleId);
   const renderCount = useRef(1);
   useEffect(() => func(), [func]);
   return (
-    <div>
+    <div id={eleId}>
       {title}, Rendered: {renderCount.current++} times.
     </div>
   );
