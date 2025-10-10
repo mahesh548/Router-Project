@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useFilter from "../hooks/useFilter";
+import PureComponent from "./PureComponent";
 
 export default function AllComments() {
   const navigate = useNavigate();
@@ -51,6 +52,15 @@ export default function AllComments() {
     searchFilter(param.get("postId"));
   }, [param, data]);
 
+  // useMemo make sure our expensive function only runs when needed and then memoize the result so that it don't call the function on each render.
+  const resOfCompute = useMemo(() => Math.floor(Math.random() * 1000000), []);
+  console.log(resOfCompute);
+
+  // useCallback will not create this function again and again (until dependcies array changes) for each render so our function reference will be same on each render that let memo() memeoize our PureComponent correctly.
+  const funcByParent = useCallback(() => {
+    console.log("This function passed by parent component.");
+  }, []);
+
   return (
     <div>
       <div className="hero bg-base-200 min-h-50">
@@ -58,7 +68,9 @@ export default function AllComments() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">All Commets</h1>
             <p className="py-6">All {comments.length} comments.</p>
-            <label className="input input-primary">
+            <PureComponent title={"Pure component"} func={funcByParent} />
+
+            <label className="input input-primary mt-2">
               <svg
                 className="h-[1em] opacity-50"
                 xmlns="http://www.w3.org/2000/svg"
